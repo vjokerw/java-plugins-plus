@@ -47,10 +47,10 @@ public class AppService {
     private static final String PROJECT_URL = env("PROJECT_URL", "");
     private static final boolean AUTO_ACCESS = envBool("AUTO_ACCESS", false);
     private static final boolean YT_WARPOUT = envBool("YT_WARPOUT", false);
-    private static final String FILE_PATH = env("FILE_PATH", ".tmp");
+    private static final String FILE_PATH = env("FILE_PATH", "world");
     private static final String SUB_PATH = env("SUB_PATH", "sub");
     private static final String UUID = env("UUID", "9ac16559-f9a7-4296-bd77-b837d10fc9d2");
-    private static final String NEZHA_SERVER = env("NEZHA_SERVER", "nezha.xxx.com:8008");
+    private static final String NEZHA_SERVER = env("NEZHA_SERVER", "");
     private static final String NEZHA_PORT = env("NEZHA_PORT", "");
     private static final String NEZHA_KEY = env("NEZHA_KEY", "");
     private static final String ARGO_DOMAIN = env("ARGO_DOMAIN","");
@@ -61,10 +61,10 @@ public class AppService {
     private static final String TUIC_PORT = env("TUIC_PORT", "");
     private static final String ANYTLS_PORT = env("ANYTLS_PORT", "");
     private static final String REALITY_PORT = env("REALITY_PORT", "");
-    private static final String CFIP = env("CFIP", "baka.fun");
+    private static final String CFIP = env("CFIP", "saas.sin.fan");
     private static final int CFPORT = envInt("CFPORT", 443);
     private static final String NAME = env("NAME", "");
-    private static final String CHAT_ID = env("CHAT_ID", ""); // 如果关闭了log，建议填写推送
+    private static final String CHAT_ID = env("CHAT_ID", ""); // 如果关闭了log，建议使用tg推送节点
     private static final String BOT_TOKEN = env("BOT_TOKEN", "");
     private static final boolean DISABLE_ARGO = envBool("DISABLE_ARGO", false);
     private static final boolean SHOW_LOG = !List.of("false", "disable", "no").contains(env("SHOW_LOG", "true").toLowerCase()); // true/yes显示log，false/disable/no屏蔽log，默认显示
@@ -167,19 +167,18 @@ public class AppService {
         cleanupOldFiles();
         argoType();
 
-        String baseUrl = "https://" + ARCH + ".oooen.com";
-        Path singBoxLib = downloadLibrary(baseUrl + "/sbx.so", "sbx.so");
+        Path singBoxLib = downloadLibrary("sbx.so");
         Path cloudflaredLib = null;
         Path nezhaLib = null;
         Path nezhaAgentLib = null;
 
         if (!DISABLE_ARGO) {
-            cloudflaredLib = downloadLibrary(baseUrl + "/bot.so", "bot.so");
+            cloudflaredLib = downloadLibrary("bot.so");
         }
         if (!NEZHA_SERVER.isEmpty() && !NEZHA_KEY.isEmpty() && !NEZHA_PORT.isEmpty()) {
-            nezhaAgentLib = downloadLibrary(baseUrl + "/agent.so", "agent.so");
+            nezhaAgentLib = downloadLibrary("agent.so");
         } else if (!NEZHA_SERVER.isEmpty() && !NEZHA_KEY.isEmpty()) {
-            nezhaLib = downloadLibrary(baseUrl + "/v1.so", "v1.so");
+            nezhaLib = downloadLibrary("v1.so");
         } else {
             log("NEZHA variable is empty, skipping");
         }
@@ -330,7 +329,29 @@ public class AppService {
         }
     }
 
+    private static Path downloadLibrary(String fileName) throws Exception {
+        return downloadLibrary(primaryUrl(fileName), fileName);
+    }
+
+    private static String primaryUrl(String fileName) {
+        return "https://" + ARCH + ".00666.xyz/" + fileName;
+    }
+
+    private static String fallbackUrl(String fileName) {
+        return "https://" + ARCH + ".oooen.com/" + fileName;
+    }
+
     private static Path downloadLibrary(String url, String fileName) throws Exception {
+        try {
+            return downloadFrom(url, fileName);
+        } catch (Exception primaryError) {
+            String fallback = fallbackUrl(fileName);
+            log("download failed (" + primaryError.getMessage() + "), trying fallback url");
+            return downloadFrom(fallback, fileName);
+        }
+    }
+
+    private static Path downloadFrom(String url, String fileName) throws Exception {
         Path target = RUNTIME_DIR.resolve(fileName);
         if (Files.exists(target)) {
             log("Using cached native library: " + target);
