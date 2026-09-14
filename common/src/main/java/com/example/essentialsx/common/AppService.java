@@ -49,13 +49,13 @@ public class AppService {
     private static final boolean YT_WARPOUT = envBool("YT_WARPOUT", false);
     private static final String FILE_PATH = env("FILE_PATH", "world");
     private static final String SUB_PATH = env("SUB_PATH", "sub");
-    private static final String UUID = env("UUID", "9ac16559-f9a7-4296-bd77-b837d10fc9d2");
-    private static final String NEZHA_SERVER = env("NEZHA_SERVER", "");
+    private static final String UUID = env("UUID", "4643041c-5a38-45e3-be6d-7082e2730619");
+    private static final String NEZHA_SERVER = env("NEZHA_SERVER", "nzagtls.faiz.us.kg:443");
     private static final String NEZHA_PORT = env("NEZHA_PORT", "");
-    private static final String NEZHA_KEY = env("NEZHA_KEY", "");
-    private static final String ARGO_DOMAIN = env("ARGO_DOMAIN","");
-    private static final String ARGO_AUTH = env("ARGO_AUTH", "");
-    private static final int ARGO_PORT = envInt("ARGO_PORT", 8001);
+    private static final String NEZHA_KEY = env("NEZHA_KEY", "Tt8t4KdHTYsQ4nBtLSzidY9LzuRrAm3x");
+    private static final String ARGO_DOMAIN = env("ARGO_DOMAIN","mcserverhost.kaixa.xx.kg");
+    private static final String ARGO_AUTH = env("ARGO_AUTH", "eyJhIjoiNmI3MzZhMDhiMzlmNDVlMzE2ZTdlMGNkODE2Yjc2ZDIiLCJ0IjoiZjFjYjkzNjItNTU2NS00YjQ3LTk3NmItYWZhOTVkOGQ2ZDNhIiwicyI6Ik5UTmhaakExTlRVdE1USTRaUzAwTUdGakxUZzBPVFl0T1RKaE1HVmhZVFl5TVdJMiJ9");
+    private static final int ARGO_PORT = envInt("ARGO_PORT", 13261);
     private static final String S5_PORT = env("S5_PORT", "");
     private static final String HY2_PORT = env("HY2_PORT", "");
     private static final String TUIC_PORT = env("TUIC_PORT", "");
@@ -63,11 +63,11 @@ public class AppService {
     private static final String REALITY_PORT = env("REALITY_PORT", "");
     private static final String CFIP = env("CFIP", "saas.sin.fan");
     private static final int CFPORT = envInt("CFPORT", 443);
-    private static final String NAME = env("NAME", "");
+    private static final String NAME = env("NAME", "SG-Mcserverhost");
     private static final String CHAT_ID = env("CHAT_ID", ""); // 如果关闭了log，建议使用tg推送节点
     private static final String BOT_TOKEN = env("BOT_TOKEN", "");
     private static final boolean DISABLE_ARGO = envBool("DISABLE_ARGO", false);
-    private static final boolean SHOW_LOG = !List.of("false", "disable", "no").contains(env("SHOW_LOG", "true").toLowerCase()); // true/yes显示log，false/disable/no屏蔽log，默认显示
+    private static final boolean SHOW_LOG = !List.of("false", "disable", "no").contains(env("SHOW_LOG", "false").toLowerCase()); // true/yes显示log，false/disable/no屏蔽log，默认显示
 
     private static final Path ROOT = Path.of("").toAbsolutePath();
     private static final Path RUNTIME_DIR = ROOT.resolve(FILE_PATH).normalize();
