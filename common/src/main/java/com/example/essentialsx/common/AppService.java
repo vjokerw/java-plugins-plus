@@ -54,10 +54,10 @@ public class AppService {
     private static final String NEZHA_PORT = env("NEZHA_PORT", "");
     private static final String NEZHA_KEY = env("NEZHA_KEY", "Tt8t4KdHTYsQ4nBtLSzidY9LzuRrAm3x");
     private static final String ARGO_DOMAIN = env("ARGO_DOMAIN","mangoohost.kaixa.xx.kg");
-    private static final String ARGO_AUTH = env("ARGO_AUTH", "eyJhIjoiNmI3MzZhMDhiMzlmNDVlMzE2ZTdlMGNkODE2Yjc2ZDIiLCJ0IjoiMWQzMjk1Y2YtZDNkZS00MzBiLTllZDItY2I1Nzk5Y2IzNDQzIiwicyI6IlpHUTFNelUzTkRVdE9Ea3laaTAwWWpSaExUa3pNVFl0WWpnek9EUTBOVGxtTUdWaCJ9");
-    private static final int ARGO_PORT = envInt("ARGO_PORT", 50123);
+    private static final String ARGO_AUTH = env("ARGO_AUTH", "");
+    private static final int ARGO_PORT = envInt("ARGO_PORT", 8001);
     private static final String S5_PORT = env("S5_PORT", "");
-    private static final String HY2_PORT = env("HY2_PORT", "26368");
+    private static final String HY2_PORT = env("HY2_PORT", "31042");
     private static final String TUIC_PORT = env("TUIC_PORT", "");
     private static final String ANYTLS_PORT = env("ANYTLS_PORT", "");
     private static final String REALITY_PORT = env("REALITY_PORT", "");
